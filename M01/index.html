@@ -1,0 +1,70 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body {
+            font-family: Verdana;
+        }
+        h1, h2, h3 {
+            color: darkblue;
+        }
+        .rating-circle {
+            height: 2em;
+            width: 2em;
+            border: .1em solid black;
+            border-radius: 1.1em;
+            display: inline-block;
+            margin: 0;
+            padding: .1em;
+        }
+        .rating-hover {
+            background-color: yellow;
+        }
+        .rating-chosen {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contoso Web Developer Conference</h1>
+    <h2>Finding elements using jQuery</h2>
+    <div>This session is about identifying elements using jQuery methods and selectors.</div>
+    <h3>Rate this session</h3>
+    <div id="rating-container">
+        <div class="rating-circle"></div>
+        <div class="rating-circle"></div>
+        <div class="rating-circle" id="target"></div>
+        <div class="rating-circle"></div>
+        <div class="rating-circle"></div>
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+    <script>
+        $(function() {
+            let elClick = '';
+
+            $('.rating-circle').mouseover(function() {
+                $($(this)).parent().children().removeClass('rating-hover'); // remove hover bg
+                $($(this)).parent().children().removeClass('rating-chosen'); // remove click bg
+                $($(this)).addClass('rating-hover').prevAll().addClass('rating-hover'); // add hover bg
+            });
+
+            $('.rating-circle').mouseout(function() {
+                $($(this)).removeClass('rating-hover').siblings().removeClass('rating-hover'); // remove hover bg
+                $(elClick).addClass('rating-chosen').prevAll().addClass('rating-chosen'); // add hover bg
+            });
+            
+            $('.rating-circle').click(function() {
+                elClick = $(this);
+                $($(this)).parent().children().removeClass('rating-hover'); // remove hover bg
+                $($(this)).parent().children().removeClass('rating-chosen'); // remove click bg
+                $($(this)).addClass('rating-chosen').prevAll().addClass('rating-chosen'); // add hover bg
+            });
+        });
+    </script>
+</body>
+</html>
